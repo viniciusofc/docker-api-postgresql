@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: Docker_Container
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: ecommerce
+    volumes:
+      - ./create_table.sql:/docker-entrypoint-initdb.d/create_table.sql
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5490:5432"
+    networks:
+      - meu_network
+
+networks:
+  meu_network:
+    driver: bridge
